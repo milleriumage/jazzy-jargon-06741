@@ -248,6 +248,26 @@ export const CreditsProvider: React.FC<{ children: ReactNode }> = ({ children })
           }));
         }
 
+        // Load all user profiles from Supabase
+        const { data: profiles } = await supabase
+          .from('profiles')
+          .select('*');
+        
+        if (profiles) {
+          const loadedUsers: User[] = profiles.map(profile => ({
+            id: profile.id,
+            username: profile.username || profile.id.slice(0, 8),
+            email: profile.id,
+            profilePictureUrl: profile.profile_picture_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+            role: 'user' as UserRole,
+            followers: [],
+            following: [],
+            vitrineSlug: profile.vitrine_slug || profile.id,
+            bio: profile.bio
+          }));
+          setAllUsers(loadedUsers);
+        }
+
         // Load all content items from Supabase with media
         const { data: items } = await supabase
           .from('content_items')
@@ -373,6 +393,26 @@ export const CreditsProvider: React.FC<{ children: ReactNode }> = ({ children })
             ...prev,
             [userId]: unlockedContent.map(item => item.content_item_id)
           }));
+        }
+
+        // Load all user profiles from Supabase
+        const { data: profiles } = await supabase
+          .from('profiles')
+          .select('*');
+        
+        if (profiles) {
+          const loadedUsers: User[] = profiles.map(profile => ({
+            id: profile.id,
+            username: profile.username || profile.id.slice(0, 8),
+            email: profile.id,
+            profilePictureUrl: profile.profile_picture_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+            role: 'user' as UserRole,
+            followers: [],
+            following: [],
+            vitrineSlug: profile.vitrine_slug || profile.id,
+            bio: profile.bio
+          }));
+          setAllUsers(loadedUsers);
         }
 
         // Load all content items from Supabase with media
