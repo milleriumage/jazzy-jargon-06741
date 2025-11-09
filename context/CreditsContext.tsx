@@ -291,16 +291,18 @@ export const CreditsProvider: React.FC<{ children: ReactNode }> = ({ children })
             // Use consistent placeholder SVG instead of random images
             const placeholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzI2MjYyNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM2NjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
             
-            // Clean storage path - remove any existing bucket prefix
-            const cleanPath = (path: string) => {
-              if (!path) return '';
-              // Remove bucket name if it's included in the path
-              return path.replace(/^content-media\//, '');
+            // Check if storage_path is already a full URL or just a path
+            const getImageUrl = (storagePath: string) => {
+              if (!storagePath) return placeholderSVG;
+              // If it's already a full URL, use it directly
+              if (storagePath.startsWith('http')) return storagePath;
+              // Otherwise, generate the public URL
+              const cleanPath = storagePath.replace(/^content-media\//, '');
+              return supabase.storage.from('content-media').getPublicUrl(cleanPath).data.publicUrl;
             };
             
-            // Get public URL for the full image
             const imageUrl = firstImage?.storage_path 
-              ? supabase.storage.from('content-media').getPublicUrl(cleanPath(firstImage.storage_path)).data.publicUrl
+              ? getImageUrl(firstImage.storage_path)
               : placeholderSVG;
             
             // Use same URL for thumbnail (browser will resize via CSS)
@@ -416,16 +418,18 @@ export const CreditsProvider: React.FC<{ children: ReactNode }> = ({ children })
             // Use consistent placeholder SVG instead of random images
             const placeholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzI2MjYyNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM2NjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
             
-            // Clean storage path - remove any existing bucket prefix
-            const cleanPath = (path: string) => {
-              if (!path) return '';
-              // Remove bucket name if it's included in the path
-              return path.replace(/^content-media\//, '');
+            // Check if storage_path is already a full URL or just a path
+            const getImageUrl = (storagePath: string) => {
+              if (!storagePath) return placeholderSVG;
+              // If it's already a full URL, use it directly
+              if (storagePath.startsWith('http')) return storagePath;
+              // Otherwise, generate the public URL
+              const cleanPath = storagePath.replace(/^content-media\//, '');
+              return supabase.storage.from('content-media').getPublicUrl(cleanPath).data.publicUrl;
             };
             
-            // Get public URL for the full image
             const imageUrl = firstImage?.storage_path 
-              ? supabase.storage.from('content-media').getPublicUrl(cleanPath(firstImage.storage_path)).data.publicUrl
+              ? getImageUrl(firstImage.storage_path)
               : placeholderSVG;
             
             // Use same URL for thumbnail (browser will resize via CSS)
