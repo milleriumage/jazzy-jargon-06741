@@ -62,8 +62,10 @@ const NavItem: React.FC<NavItemProps> = ({ screen, label, icon, isActive, onClic
           ? 'bg-brand-primary text-white shadow-lg'
           : 'text-neutral-300 hover:bg-neutral-700 hover:text-white'
       }`}
+      aria-label={label}
+      aria-current={isActive ? 'page' : undefined}
     >
-      <span className="w-6 h-6">{icon}</span>
+      <span className="w-6 h-6" aria-hidden="true">{icon}</span>
       <span className="ml-4 font-semibold">{label}</span>
     </button>
   </li>
@@ -286,11 +288,19 @@ const Sidebar: React.FC = () => {
 
       <div className="p-4 border-t border-neutral-700">
         {userRole === 'creator' && (
-            <button onClick={shareVitrine} className="w-full text-sm text-center bg-neutral-700 text-neutral-300 hover:bg-neutral-600 rounded p-2 mb-4">
+            <button 
+                onClick={shareVitrine} 
+                className="w-full text-sm text-center bg-neutral-700 text-neutral-300 hover:bg-neutral-600 rounded p-2 mb-4"
+                aria-label="Share your vitrine link"
+            >
                 Share Vitrine
             </button>
         )}
-        <button onClick={handleLogout} className="w-full flex items-center justify-center p-3 rounded-lg bg-red-900/50 text-red-300 hover:bg-red-800/50 hover:text-white">
+        <button 
+            onClick={handleLogout} 
+            className="w-full flex items-center justify-center p-3 rounded-lg bg-red-900/50 text-red-300 hover:bg-red-800/50 hover:text-white"
+            aria-label="Logout from account"
+        >
             <LogoutIcon />
             <span className="ml-2 font-semibold">Logout</span>
         </button>

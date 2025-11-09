@@ -20,11 +20,19 @@ const ProfileHeader: React.FC = () => {
                 <img src={currentUser.profilePictureUrl} alt={currentUser.username} className="w-20 h-20 rounded-full border-2 border-brand-primary mb-2" />
                 <h2 className="font-bold text-lg text-white">{currentUser.username}</h2>
                 <div className="flex space-x-4 mt-2">
-                    <button onClick={() => openModal('followers')} className="text-center text-neutral-400 hover:text-white">
+                    <button 
+                        onClick={() => openModal('followers')} 
+                        className="text-center text-neutral-400 hover:text-white"
+                        aria-label={`View ${currentUser.followers.length} followers`}
+                    >
                         <p className="font-bold text-white">{currentUser.followers.length}</p>
                         <p className="text-xs">Followers</p>
                     </button>
-                    <button onClick={() => openModal('following')} className="text-center text-neutral-400 hover:text-white">
+                    <button 
+                        onClick={() => openModal('following')} 
+                        className="text-center text-neutral-400 hover:text-white"
+                        aria-label={`View ${currentUser.following.length} following`}
+                    >
                         <p className="font-bold text-white">{currentUser.following.length}</p>
                         <p className="text-xs">Following</p>
                     </button>

@@ -42,17 +42,42 @@ const EditCreditPackModal: React.FC<EditCreditPackModalProps> = ({ creditPackage
         <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-neutral-300">Credits</label>
-                    <input type="number" name="credits" value={formData.credits} onChange={handleChange} className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white" />
+                    <label htmlFor="credits" className="block text-sm font-medium text-neutral-300">Credits</label>
+                    <input 
+                        type="number" 
+                        id="credits"
+                        name="credits" 
+                        value={formData.credits} 
+                        onChange={handleChange} 
+                        className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white"
+                        required
+                    />
                 </div>
                  <div>
-                    <label className="block text-sm font-medium text-neutral-300">Bonus Credits</label>
-                    <input type="number" name="bonus" value={formData.bonus} onChange={handleChange} className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white" />
+                    <label htmlFor="bonus" className="block text-sm font-medium text-neutral-300">Bonus Credits</label>
+                    <input 
+                        type="number" 
+                        id="bonus"
+                        name="bonus" 
+                        value={formData.bonus} 
+                        onChange={handleChange} 
+                        className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white"
+                        required
+                    />
                 </div>
             </div>
              <div>
-                <label className="block text-sm font-medium text-neutral-300">Price (USD)</label>
-                <input type="number" name="price" step="0.01" value={formData.price} onChange={handleChange} className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white" />
+                <label htmlFor="price" className="block text-sm font-medium text-neutral-300">Price (USD)</label>
+                <input 
+                    type="number" 
+                    id="price"
+                    name="price" 
+                    step="0.01" 
+                    value={formData.price} 
+                    onChange={handleChange} 
+                    className="mt-1 block w-full bg-neutral-700 border-neutral-600 rounded-md py-2 px-3 text-white"
+                    required
+                />
             </div>
             <div className="flex items-center">
                 <input type="checkbox" name="bestValue" id="bestValue" checked={formData.bestValue} onChange={handleChange} className="h-4 w-4 rounded border-gray-300 text-brand-primary"/>
